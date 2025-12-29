@@ -6,14 +6,14 @@ I have tried to create a pad similar to the stremdeck, or at least that was de i
 <img width="1116" height="589" alt="image" src="https://github.com/user-attachments/assets/ed2fe187-7325-48d8-896c-186fbd04d0ca" />
 <img width="803" height="552" alt="image" src="https://github.com/user-attachments/assets/360a4907-e82d-4bb7-bf7b-5ea82a1f7def" />
 # Bill of Materials
-- Seeed XIAO RP2040
-- Through-hole 1N4148 Diodes (x9)
-- MX-Style switches (x9)
-- EC11 Rotary encoder
-- 0.91 inch OLED display
-- Blank DSA keycaps
-- SK6812 MINI-E LEDs (x8)
-- M3x16mm screws (x4)
-- M3x5mx4mm heatset inserts (x4)
-- Printed parts
+ - Seeed XIAO RP2040
+ - Through-hole 1N4148 Diodes (x9)
+ - MX-Style switches (x9)
+ - EC11 Rotary encoder
+ - 0.91 inch OLED display
+ - Blank DSA keycaps
+ - SK6812 MINI-E LEDs (x8)
+ - M3x16mm screws (x4)
+ - M3x5mx4mm heatset inserts (x4)
+ - Printed parts
 
