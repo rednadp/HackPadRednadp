@@ -1,7 +1,7 @@
 import board
 import busio
 from kmk.kmk_keyboard import KMKKeyboard
-from kmk.keys import KC
+from kmk.keys import KC, Key
 from kmk.scanners import DiodeOrientation
 from kmk.modules.encoder import EncoderHandler
 from kmk.extensions.media_keys import MediaKeys
@@ -21,12 +21,18 @@ i2c_bus = busio.I2C(board.D5, board.D4)
 # Pasamos los objetos directamente sin etiquetas para evitar el TypeError
 display_driver = SSD1306(i2c=i2c_bus, device_address=0x3C)
 
+estado_teclado = {
+    'volumen': 50
+}
+
+volumen_display = TextEntry(text='Vol: 50%', x=0, y=12)
 
 # Aquí le pasamos (driver, [lista de textos])
 display_extension = Display(display_driver, [
-    TextEntry(text='Hackpad v1.0', x=0, y=0),
-    TextEntry(text='¡Funciona!', x=0, y=12),
+    TextEntry(text="Rednadp's hackpad", x=0, y=0),
+    volumen_display,
 ], flip=True)
+
 
 keyboard.extensions.append(display_extension)
 
@@ -55,19 +61,46 @@ keyboard.keymap = [
 ]
 
 # 5. MAPA DEL ENCODER (Volumen y Silencio)
+
+class VolumenKey(Key):
+    def __init__(self, incremento, **kwargs):
+        super().__init__(**kwargs)
+        self.incremento = incremento
+
+    def on_press(self, keyboard, coord_int=None):
+        # 1. Calculamos el nuevo volumen
+        nuevo_vol = estado_teclado['volumen'] + self.incremento
+        nuevo_vol = max(0, min(100, nuevo_vol))
+        estado_teclado['volumen'] = nuevo_vol
+        
+        # 2. Actualizamos el texto de la pantalla
+        volumen_display.text = f'VOL: {nuevo_vol}%'
+        
+        # 3. Mandamos la señal al ordenador
+        if self.incremento > 0:
+            keyboard.tap_key(KC.AUDIO_VOL_UP)
+        else:
+            keyboard.tap_key(KC.AUDIO_VOL_DOWN)
+        print(volumen_display.text)
+        
+
+# Creamos las dos teclas que usaremos en el encoder
+VOL_SUBIR = VolumenKey(incremento=2)
+VOL_BAJAR = VolumenKey(incremento=-2)
+
 encoder_handler.map = [
-    ((KC.VOLU, KC.VOLD, KC.MUTE),)
+    ((VOL_SUBIR, VOL_BAJAR, KC.MUTE),)
 ]
 
-rgb = RGB(
-    pixel_pin=board.D3,      # Pin donde conectaste los LEDs
-    num_pixels=9,            # Cambia este número por cuántos LEDs soldaste
-    val_default=100,         # Brillo (de 0 a 255)
-    hue_default=0,           # Color inicial (0 es rojo)
-    sat_default=255,         # Saturación
-    rgb_order=(0, 1, 2),     # Orden de colores (GRB suele ser el estándar)
-)
-keyboard.extensions.append(rgb)
+# rgb = RGB(
+#     pixel_pin=board.D3,      # Pin donde conectaste los LEDs
+#     num_pixels=1,            # Cambia este número por cuántos LEDs soldaste
+#     val_default=100,         # Brillo (de 0 a 255)
+#     hue_default=0,           # Color inicial (0 es rojo)
+#     sat_default=255,         # Saturación
+#     rgb_order=(0, 1, 2),     # Orden de colores (GRB suele ser el estándar)
+# )
+# keyboard.extensions.append(rgb)
 
 
 # --- CONFIGURACIÓN RGB LIMPIA ---
