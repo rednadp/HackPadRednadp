@@ -1,5 +1,8 @@
 # HackPadRednadp
-I have tried to create a pad similar to the stremdeck, or at least that was de idea. I have never made something similar.
+I have tried to create a pad similar to the stremdeck, or at least that was the idea. I have never made something similar and I have found some difficulties along the way. If you want to mount yourself the Pad you will need the materials listed bellow and the 3d-printed case.
+# Finall build
+![20260219_220154 (1)](https://github.com/user-attachments/assets/a1d9c116-9c11-411e-a9b5-e431908bc59c)
+
 # Bill of Materials
  - Seeed XIAO RP2040
  - Through-hole 1N4148 Diodes (x9)
