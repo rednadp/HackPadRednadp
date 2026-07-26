@@ -3,7 +3,8 @@ I have tried to create a pad similar to the stremdeck, or at least that was the 
 # Final build
 ![20260219_220154 (1)](https://github.com/user-attachments/assets/a1d9c116-9c11-411e-a9b5-e431908bc59c)
 
-# Journal
+# Journal 
+The desing is not journaled, only the building, sorry :)
 # 2/7/2026 - Mounting the pcb day 1  
 
 _Time spent: 2.0h_  
